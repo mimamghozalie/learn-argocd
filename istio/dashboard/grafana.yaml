@@ -12,7 +12,7 @@ spec:
         name: HTTP
         protocol: HTTP
       hosts:
-        - "*"
+        - "grafana.xcv.my.id"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -21,7 +21,7 @@ metadata:
   namespace: istio-system # Use same namespace with backend service
 spec:
   hosts:
-    - "*"
+    - "grafana.xcv.my.id"
   gateways:
     - grafana-gateway # define gateway name
   http:
@@ -33,3 +33,28 @@ spec:
             port:
               number: 3000 # Backend service port
             host: grafana # Backend service name
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: istio
+spec:
+  controller: istio.io/ingress-controller
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  ingressClassName: istio
+  rules:
+    - host: grafana.xcv.my.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 3000
