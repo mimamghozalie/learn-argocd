@@ -12,7 +12,7 @@ spec:
         name: HTTP
         protocol: HTTP
       hosts:
-        - "grafana.xcv.my.id"
+        - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -21,7 +21,7 @@ metadata:
   namespace: istio-system # Use same namespace with backend service
 spec:
   hosts:
-    - "grafana.xcv.my.id"
+    - "*"
   gateways:
     - grafana-gateway # define gateway name
   http:
