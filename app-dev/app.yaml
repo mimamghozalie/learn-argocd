@@ -57,10 +57,10 @@ spec:
                 name: app-cf-dev
                 port:
                   number: 80
-  # tls:
-  #   - hosts:
-  #       - app-cf-dev.test-002.xcv.my.id
-  #     secretName: cf-secret
+  tls:
+    - hosts:
+        - app-cf-dev.test-002.xcv.my.id
+      secretName: cf-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
