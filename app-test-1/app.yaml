@@ -61,7 +61,7 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - app-test-1.xcv.my.id
+        - app-test-1.test-002.xcv.my.id
       secretName: app-test-1-tls-secret
 ---
 apiVersion: cert-manager.io/v1
