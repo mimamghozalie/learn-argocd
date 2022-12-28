@@ -72,7 +72,7 @@ metadata:
 spec:
   secretName: app-test-1-tls-secret
   issuerRef:
-    name: ssl-issuer
+    name: cloudflare-issuer
     kind: ClusterIssuer
   dnsNames:
     - app-test-1.test-002.xcv.my.id
