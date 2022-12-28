@@ -21,14 +21,9 @@ spec:
       containers:
         - name: app-test-1
           image: nginx
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
             - name: web
               containerPort: 80
-      restartPolicy: OnFailure
 ---
 apiVersion: v1
 kind: Service
@@ -52,12 +47,9 @@ kind: Ingress
 metadata:
   name: app-test-1-ingress
   namespace: app-dev
-# annotations:
-#   traefik.ingress.kubernetes.io/router.tls: "true"
-#   cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
-    - host: "ad.test-002.xcv.my.id"
+    - host: "app-dev-002.xcv.my.id"
       http:
         paths:
           - path: /
@@ -67,7 +59,20 @@ spec:
                 name: app-test-1-svc
                 port:
                   number: 80
-  # tls:
-  #   - hosts:
-  #       - ad.test-002.xcv.my.id
-  #     secretName: app-test-1-tls-secret1
+  tls:
+    - hosts:
+        - app-dev-002.xcv.my.id
+      secretName: app-test-1-tls-secret1
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: app-test-1-cert
+  namespace: app-dev
+spec:
+  secretName: app-test-1-tls-secret1
+  issuerRef:
+    name: letsencrypt-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - app-dev-002.xcv.my.id
