@@ -52,9 +52,9 @@ kind: Ingress
 metadata:
   name: app-test-1-ingress
   namespace: app-dev
-annotations:
-  traefik.ingress.kubernetes.io/router.tls: "true"
-  cert-manager.io/cluster-issuer: letsencrypt-prod
+# annotations:
+#   traefik.ingress.kubernetes.io/router.tls: "true"
+#   cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
     - host: "ad.test-002.xcv.my.id"
@@ -67,7 +67,7 @@ spec:
                 name: app-test-1-svc
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - ad.test-002.xcv.my.id
-      secretName: app-test-1-tls-secret1
+  # tls:
+  #   - hosts:
+  #       - ad.test-002.xcv.my.id
+  #     secretName: app-test-1-tls-secret1
