@@ -49,7 +49,7 @@ metadata:
   namespace: app-dev
 spec:
   rules:
-    - host: "app-dev-002.xcv.my.id"
+    - host: "app-dev-001.xcv.my.id"
       http:
         paths:
           - path: /
@@ -61,7 +61,7 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - app-dev-002.xcv.my.id
+        - app-dev-001.xcv.my.id
       secretName: app-test-1-tls-secret1
 ---
 apiVersion: cert-manager.io/v1
@@ -75,4 +75,4 @@ spec:
     name: letsencrypt-issuer
     kind: ClusterIssuer
   dnsNames:
-    - app-dev-002.xcv.my.id
+    - app-dev-001.xcv.my.id
