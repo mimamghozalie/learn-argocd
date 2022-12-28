@@ -1,47 +1,35 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: dashboard-gateway
-  namespace: default
+  name: httpbin-gateway
 spec:
   selector:
-    istio: ingressgateway
+    istio: ingressgateway # use Istio default gateway implementation
   servers:
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - "dashboard.xcv.my.id"
-
+        - "httpbin.xcv.my.id"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: dashboard
-  namespace: default
+  name: httpbin
 spec:
   hosts:
-    - "dashboard.xcv.my.id"
+    - "httpbin.xcv.my.id"
   gateways:
-    - dashboard-gateway
+    - httpbin-gateway
   http:
-    - route:
+    - match:
+        - uri:
+            prefix: /status
+        - uri:
+            prefix: /delay
+      route:
         - destination:
-            host: kubernetes-dashboard.kube-system.svc.cluster.local
             port:
-              number: 80
----
-kind: Service
-apiVersion: v1
-metadata:
-  labels:
-    k8s-app: kubernetes-dashboard
-  name: kubernetes-dashboard
-  namespace: kube-system
-spec:
-  ports:
-    - port: 80
-      targetPort: 9090
-  selector:
-    k8s-app: kubernetes-dashboard
+              number: 8000
+            host: httpbin
