@@ -45,14 +45,6 @@ kind: Ingress
 metadata:
   name: app-simple
   namespace: app-simple
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-
-    # remark the following line, HTTPS will return "404 page not found"
-    # enable the following line, HTTP will return "404 page not found"
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
   rules:
     - host: "app-simple.test-002.xcv.my.id"
