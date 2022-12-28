@@ -52,7 +52,6 @@ metadata:
     # remark the following line, HTTPS will return "404 page not found"
     # enable the following line, HTTP will return "404 page not found"
     traefik.ingress.kubernetes.io/router.tls: "true"
-
     cert-manager.io/cluster-issuer: letsencrypt-issuer
 spec:
   rules:
@@ -67,4 +66,17 @@ spec:
                 port:
                   number: 80
   tls:
-    - secretName: cf-secret
+    - secretName: cf-simple-secret
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: app-cf-dev
+  namespace: app-dev
+spec:
+  secretName: cf-simple-secret
+  issuerRef:
+    name: letsencrypt-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - app-simple.test-002.xcv.my.id
