@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-simple
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-simple
+  namespace: app-simple
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-test-1
+  template:
+    metadata:
+      labels:
+        app: app-test-1
+    spec:
+      containers:
+        - name: app-test-1
+          image: nginx
+          ports:
+            - name: web
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-simple
+  namespace: app-simple
+  labels:
+    app: app-test-1
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-simple
+  namespace: app-simple
+spec:
+  rules:
+    - host: "app-simple.test-002.xcv.my.id"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-simple
+                port:
+                  number: 80
+  tls:
+    - secretName: cf-secret
