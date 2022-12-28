@@ -39,8 +39,6 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app: app-test-1
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -56,7 +54,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-test-1-svc
+                name: app-cf-dev
                 port:
                   number: 80
   tls:
