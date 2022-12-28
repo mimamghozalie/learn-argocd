@@ -22,9 +22,9 @@ spec:
         - name: app-test-1
           image: nginx
           resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           ports:
             - name: web
               containerPort: 80
