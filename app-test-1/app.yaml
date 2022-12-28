@@ -49,7 +49,7 @@ metadata:
   namespace: app-test-1
 spec:
   rules:
-    - host: "app-test-1.xcv.my.id"
+    - host: "app-test-1.test-002.xcv.my.id"
       http:
         paths:
           - path: /
@@ -75,4 +75,4 @@ spec:
     name: ssl-issuer
     kind: ClusterIssuer
   dnsNames:
-    - app-test-1.xcv.my.id
+    - app-test-1.test-002.xcv.my.id
