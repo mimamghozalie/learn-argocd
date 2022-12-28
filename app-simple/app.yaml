@@ -58,7 +58,9 @@ spec:
                 port:
                   number: 80
   tls:
-    - secretName: cf-simple-secret
+    - hosts:
+        - app-simple.test-002.xcv.my.id
+      secretName: cf-simple-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
