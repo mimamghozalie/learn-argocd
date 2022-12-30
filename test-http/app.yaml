@@ -13,13 +13,17 @@ spec:
         app: app-test-1
     spec:
       containers:
-        - name: app-test-1
-          image: nginx
+        - image: docker.io/kennethreitz/httpbin
+          imagePullPolicy: IfNotPresent
+          name: httpbin
           ports:
             - name: web
               containerPort: 80
           resources:
             limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
               memory: "128Mi"
               cpu: "500m"
 ---
