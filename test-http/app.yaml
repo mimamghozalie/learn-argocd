@@ -36,21 +36,3 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: app-cf-dev
-spec:
-  rules:
-    - host: "app-cf-dev.test-002.xcv.my.id"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: app-cf-dev
-                port:
-                  number: 80
-  tls: {}
