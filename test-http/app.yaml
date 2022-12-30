@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-cf-dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-test-1
+  template:
+    metadata:
+      labels:
+        app: app-test-1
+    spec:
+      containers:
+        - image: nginx:1.23.3
+          imagePullPolicy: IfNotPresent
+          name: httpbin
+          ports:
+            - name: web
+              containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-cf-dev
+  labels:
+    app: app-test-1
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
