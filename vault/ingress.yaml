@@ -14,12 +14,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vault
+  annotations:
+    kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - host: vault-dev.xcv.my.id
+    - host: vault.example.com
       http:
         paths:
-          - path: /
+          - pathType: /
             backend:
               serviceName: vault
               servicePort: 8200
