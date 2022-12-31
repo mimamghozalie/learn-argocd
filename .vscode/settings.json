@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "kubernetes://schema/apps/v1@statefulset+v1@service": "file:///home/naura/learn/learn-argocd/kafka/statefullset.yaml"
+  }
+}
